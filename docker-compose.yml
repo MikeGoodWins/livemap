@@ -1,0 +1,34 @@
+version: "3"
+services:
+
+  #Postgres-----------------------------------------------#
+
+  postgres_lm:
+    image: postgres:13
+    container_name: postgres_lm
+    volumes:
+      - /home/goodwin/MyProjects/LiveMap/data/db/postgres:/var/lib/postgresql/data
+      - ../tools/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: "root"
+      POSTGRES_PASSWORD: "password"
+    ports:
+      - 5432:5432
+    networks:
+      - live
+
+  #Redis---------------------------------------------------#
+
+  redis:
+    profiles:
+      - base
+    image: redis/redis-stack:latest
+    ports:
+      - "6379:6379"
+      - "8001:8001"
+    volumes:
+      - /home/goodwin/MyProjects/redis/data:/redis-stack
+    networks:
+      - live
+networks:
+  live:

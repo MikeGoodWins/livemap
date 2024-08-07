@@ -1,0 +1,21 @@
+server:
+  port: 8000
+spring:
+  application:
+    name: livemap
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST_NAME:postgres}:${POSTGRES_PORT:5432}/live
+    username: ${POSTGRES_USER:root}
+    password: ${POSTGRES_PASSWORD:password}
+  main:
+    allow-bean-definition-overriding: true
+  jpa:
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    change-log: classpath:db/changelog/changelog.xml
+    enabled: true
+
+logging:
+  level:
+    root: INFO
